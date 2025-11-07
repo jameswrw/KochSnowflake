@@ -30,10 +30,17 @@ struct KochSnowflakeTests {
             )
         ]
         
-        for i in 0...6 {
+        for i: UInt in 0...6 {
             let model = await KochSnowflakeModel(maxGeneration: i, initialVertices: seed)
             #expect(model.vertices.count == Int(3 * pow(4.0, Double(i))))
         }
+        
+        // Check we are limited to six generations.
+        var model = await KochSnowflakeModel(maxGeneration: 7, initialVertices: seed)
+        #expect(model.vertices.count == Int(3 * pow(4.0, Double(6))))
+        
+        model = await KochSnowflakeModel(maxGeneration: UInt.max, initialVertices: seed)
+        #expect(model.vertices.count == Int(3 * pow(4.0, Double(6))))
     }
 
 }

@@ -15,11 +15,11 @@ struct Line {
 struct KochSnowflakeModel {
     var vertices: [Line]
     private var currentGeneration: Int
-    var maxGenerations: Int
+    var maxGenerations: UInt
     
-    init(maxGeneration: Int, initialVertices: [Line]) {
+    init(maxGeneration: UInt, initialVertices: [Line]) {
         self.currentGeneration = 0
-        self.maxGenerations = maxGeneration
+        self.maxGenerations = min(maxGeneration, 6)
         self.vertices = initialVertices
         
         if maxGeneration > 0 {
@@ -62,7 +62,7 @@ struct KochSnowflakeModel {
         vertices = newVertices
         currentGeneration += 1
         
-        if currentGeneration == maxGenerations || currentGeneration > 6 {
+        if currentGeneration == maxGenerations {
             return
         } else {
             generateVertices()

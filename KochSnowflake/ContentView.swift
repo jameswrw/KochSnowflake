@@ -47,7 +47,7 @@ struct ContentView: View {
     private func makeModel(for size: CGSize) -> KochSnowflakeModel {
         let seed = useTriangleSeed ? triangleSeed(for: size) : singleEdgeSeed(for: size)
         return KochSnowflakeModel(
-            maxGeneration: Int(maxGeneration),
+            maxGeneration: UInt(maxGeneration),
             initialVertices: seed
         )
     }
