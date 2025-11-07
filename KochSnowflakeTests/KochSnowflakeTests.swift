@@ -9,12 +9,13 @@ import Testing
 import AppKit
 @testable import KochSnowflake
 
+
 struct KochSnowflakeTests {
 
-    @Test func testVertexCount() async throws {
+    @Test func testVertexCount() throws {
         let size = CGSize(width: 600, height: 600)
         let triangleHeight = sqrt(3.0) / 2.0
-        
+
         let seed = [
             Line(
                 start: CGPoint(x: 0.0, y: size.height / 4.0),
@@ -29,17 +30,17 @@ struct KochSnowflakeTests {
                 end: CGPoint(x: 0.0, y: size.height / 4.0)
             )
         ]
-        
+
         for i: UInt in 0...6 {
-            let model = await KochSnowflakeModel(maxGeneration: i, initialVertices: seed)
+            let model = KochSnowflakeModel(maxGeneration: i, initialVertices: seed)
             #expect(model.vertices.count == Int(3 * pow(4.0, Double(i))))
         }
-        
+
         // Check we are limited to six generations.
-        var model = await KochSnowflakeModel(maxGeneration: 7, initialVertices: seed)
+        var model = KochSnowflakeModel(maxGeneration: 7, initialVertices: seed)
         #expect(model.vertices.count == Int(3 * pow(4.0, Double(6))))
-        
-        model = await KochSnowflakeModel(maxGeneration: UInt.max, initialVertices: seed)
+
+        model = KochSnowflakeModel(maxGeneration: UInt.max, initialVertices: seed)
         #expect(model.vertices.count == Int(3 * pow(4.0, Double(6))))
     }
 
