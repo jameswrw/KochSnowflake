@@ -12,7 +12,7 @@ struct Line {
     let end: CGPoint
 }
 
-class KochSnowflakeModel {
+struct KochSnowflakeModel {
     var vertices: [Line]
     private var currentGeneration: Int
     var maxGenerations: Int
@@ -27,11 +27,9 @@ class KochSnowflakeModel {
         }
     }
     
-    private func generateVertices() {
-                
+    private mutating func generateVertices() {
         var newVertices: [Line] = []
         for vertex in vertices {
-            
             let deltaX = vertex.end.x - vertex.start.x
             let deltaY = vertex.end.y - vertex.start.y
             var start = vertex.start
@@ -40,7 +38,7 @@ class KochSnowflakeModel {
                 y: vertex.start.y + deltaY / 3.0
             )
             
-            newVertices.append(Line(start: start, end: end ))
+            newVertices.append(Line(start: start, end: end))
             
             start = end
             end = CGPoint(
